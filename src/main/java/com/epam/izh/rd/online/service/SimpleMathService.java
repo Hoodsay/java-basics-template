@@ -87,7 +87,17 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFactorial(int initialVal) {
-        return -1L;
+        long factorial = 1L;
+        if ((initialVal != 0) && (initialVal > 0)) {
+            for (int i = initialVal; i > 1; i--) {
+                factorial *= i;
+            }
+        } else {
+            if (initialVal < 0) {
+                throw new IllegalArgumentException("Value is not valid: " + initialVal);
+            }
+        }
+        return factorial;
     }
 
     /**
