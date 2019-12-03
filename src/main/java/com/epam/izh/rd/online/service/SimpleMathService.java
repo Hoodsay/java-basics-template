@@ -88,14 +88,12 @@ public class SimpleMathService implements MathService {
     @Override
     public long calcFactorial(int initialVal) {
         long factorial = 1L;
-        if ((initialVal != 0) && (initialVal > 0)) {
+        if (initialVal > 0) {
             for (int i = initialVal; i > 1; i--) {
                 factorial *= i;
             }
-        } else {
-            if (initialVal < 0) {
-                throw new IllegalArgumentException("Value is not valid: " + initialVal);
-            }
+        } else if (initialVal < 0) {
+            throw new IllegalArgumentException("Value is not valid: " + initialVal);
         }
         return factorial;
     }
@@ -112,7 +110,18 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFibonacci(int number) {
-        return -1L;
+        if (number > 0) {
+            long[] arrayOfFibonacci = new long[number + 1];
+            arrayOfFibonacci[0] = 0L;
+            arrayOfFibonacci[1] = 1L;
+            for(int i = 2; i < (number + 1); i++) {
+                arrayOfFibonacci[i] = arrayOfFibonacci[i - 2] + arrayOfFibonacci[i - 1];
+            }
+            return arrayOfFibonacci[number];
+        } else if (number < 0) {
+            throw new IllegalArgumentException("Value is not valid: " + number);
+        }
+        return 0L;
     }
 
     /**
