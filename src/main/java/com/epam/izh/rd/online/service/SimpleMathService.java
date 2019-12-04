@@ -13,7 +13,13 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int compare(int value1, int value2) {
-        return -2;
+        if (value1 == value2) {
+            return 0;
+        } else if (value1 < value2) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     /**
@@ -22,7 +28,7 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int maxFrom(int value1, int value2) {
-        return -1;
+        return value1 > value2 ? value1 : value2;
     }
 
     /**
@@ -31,7 +37,11 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int maxFrom(int[] values) {
-        return -1;
+        int maxValue = values[0];
+        for (int element: values){
+            maxValue = maxValue > element ? maxValue : element;
+        }
+        return maxValue;
     }
 
     /**
@@ -40,7 +50,11 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int sum(int[] values) {
-        return -1;
+        int sum = 0;
+        for (int element: values) {
+            sum += element;
+        }
+        return sum;
     }
 
     /**
@@ -49,7 +63,21 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] getEvenDigits(int[] values) {
-        return new int[]{};
+        int lengthOfEven = 0;
+        for (int element: values) {
+            if ((element % 2) == 0) {
+                lengthOfEven++;
+            }
+        }
+        int[] arrayOfEven = new int[lengthOfEven];
+        int index = 0;
+        for (int element: values) {
+            if ((element % 2) == 0) {
+                arrayOfEven[index] = element;
+                index++;
+            }
+        }
+        return arrayOfEven;
     }
 
     /**
@@ -59,7 +87,15 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFactorial(int initialVal) {
-        return -1L;
+        long factorial = 1L;
+        if (initialVal > 0) {
+            for (int i = initialVal; i > 1; i--) {
+                factorial *= i;
+            }
+        } else if (initialVal < 0) {
+            throw new IllegalArgumentException("Value is not valid: " + initialVal);
+        }
+        return factorial;
     }
 
     /**
@@ -74,7 +110,18 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFibonacci(int number) {
-        return -1L;
+        if (number > 0) {
+            long[] arrayOfFibonacci = new long[number + 1];
+            arrayOfFibonacci[0] = 0L;
+            arrayOfFibonacci[1] = 1L;
+            for(int i = 2; i < (number + 1); i++) {
+                arrayOfFibonacci[i] = arrayOfFibonacci[i - 2] + arrayOfFibonacci[i - 1];
+            }
+            return arrayOfFibonacci[number];
+        } else if (number < 0) {
+            throw new IllegalArgumentException("Value is not valid: " + number);
+        }
+        return 0L;
     }
 
     /**
@@ -83,7 +130,19 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] sort(int[] values) {
-        return new int[]{};
+        int[] sortedArray = new int[values.length];
+        int temp = 0;
+        System.arraycopy(values, 0, sortedArray, 0, values.length);
+        for (int i = 0; i < sortedArray.length - 1; i++) {
+            for (int j = i + 1; j < sortedArray.length; j++) {
+                if (sortedArray[i] > sortedArray[j]) {
+                    temp = sortedArray[i];
+                    sortedArray[i] = sortedArray[j];
+                    sortedArray[j] = temp;
+                }
+            }
+        }
+        return sortedArray;
     }
 
     /**
@@ -94,7 +153,23 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public boolean isPrimary(int number) {
-        return false;
+        boolean isPrime = true;
+        if (number > 2) {
+            if (number != 3 && number != 5 && number != 7) {
+                if ((number % 2 != 0) && (number % 3 != 0) && (number % 5 != 0) && (number % 7 != 0)) {
+                    isPrime = true;
+                } else {
+                    isPrime = false;
+                }
+            } else {
+                isPrime = true;
+            }
+        } else if (number == 2) {
+            isPrime = true;
+        } else {
+            throw new IllegalArgumentException("Value is not valid: " + number);
+        }
+        return isPrime;
     }
 
     /**
@@ -104,6 +179,12 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] reverseArray(int[] values) {
-        return new int[]{};
+        int[] reversedArray = new int[values.length];
+        int reversedIndex = reversedArray.length - 1;
+        for (int element: values) {
+            reversedArray[reversedIndex] = element;
+            reversedIndex--;
+        }
+        return reversedArray;
     }
 }
