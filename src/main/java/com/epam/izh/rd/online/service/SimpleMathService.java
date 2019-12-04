@@ -130,7 +130,19 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] sort(int[] values) {
-        return new int[]{};
+        int[] sortedArray = new int[values.length];
+        int temp = 0;
+        System.arraycopy(values, 0, sortedArray, 0, values.length);
+        for (int i = 0; i < sortedArray.length - 1; i++) {
+            for (int j = i + 1; j < sortedArray.length; j++) {
+                if (sortedArray[i] > sortedArray[j]) {
+                    temp = sortedArray[i];
+                    sortedArray[i] = sortedArray[j];
+                    sortedArray[j] = temp;
+                }
+            }
+        }
+        return sortedArray;
     }
 
     /**
