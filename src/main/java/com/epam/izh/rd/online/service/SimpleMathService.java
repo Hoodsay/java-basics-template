@@ -153,7 +153,23 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public boolean isPrimary(int number) {
-        return false;
+        boolean isPrime = true;
+        if (number > 2) {
+            if (number != 3 && number != 5 && number != 7) {
+                if ((number % 2 != 0) && (number % 3 != 0) && (number % 5 != 0) && (number % 7 != 0)) {
+                    isPrime = true;
+                } else {
+                    isPrime = false;
+                }
+            } else {
+                isPrime = true;
+            }
+        } else if (number == 2) {
+            isPrime = true;
+        } else {
+            throw new IllegalArgumentException("Value is not valid: " + number);
+        }
+        return isPrime;
     }
 
     /**
